@@ -7,24 +7,24 @@ import san.edu.lab5lab6.repository.CustomerRepository;
 @Service
 public class CustomerImpl implements CustomerService {
 
-    private CustomerRepository departmentRepository;
+    private CustomerRepository customerRepository;
 
-    public CustomerImpl(CustomerRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
+    public CustomerImpl(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
     @Override
     public Customer create(Customer department) {
-        return departmentRepository.save(department);
+        return customerRepository.save(department);
     }
 
     @Override
     public Customer update(Customer department) {
-        return departmentRepository.save(department);
+        return customerRepository.save(department);
     }
 
     @Override
     public Customer get(Long id) {
-        return departmentRepository.getById(id);
+        return customerRepository.getById(id);
     }
 }
