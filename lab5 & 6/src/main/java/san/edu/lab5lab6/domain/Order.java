@@ -16,6 +16,12 @@ public class Order {
 
     LocalDate date;
 
+    @ManyToOne
+    @JoinTable(name = "customer_item_order",
+            joinColumns =@JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id"))
+    private Customer customer;
+
     @OneToMany
     @JoinTable(name = "item_order_order_line",
             joinColumns =@JoinColumn(name = "order_id"),
