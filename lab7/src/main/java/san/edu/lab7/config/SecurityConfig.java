@@ -2,6 +2,7 @@ package san.edu.lab7.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,8 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import san.edu.lab7.filter.TenantFilter;
 
-//@Configuration
-//@EnableWebSecurity(debug = true)
+@Configuration
+@EnableWebSecurity(debug = true)
 public class SecurityConfig {
 
     @Bean
@@ -24,10 +25,12 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .httpBasic(Customizer.withDefaults())
                 //.formLogin(Customizer.withDefaults())
-                .addFilterAfter(new TenantFilter(), AuthorizationFilter.class)
+//                .addFilterAfter(new TenantFilter(), AuthorizationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/books/**").hasRole("USER")
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/users/register").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/books").hasRole("USER")
+                        .requestMatchers("/books").hasRole("ADMIN")
                         .anyRequest().authenticated());
 
         return http.build();

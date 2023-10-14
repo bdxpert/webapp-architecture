@@ -18,8 +18,8 @@ import san.edu.lab7.filter.TenantFilter;
 
 import javax.sql.DataSource;
 
-@Configuration
-@EnableWebSecurity(debug = true)
+//@Configuration
+//@EnableWebSecurity(debug = true)
 public class SecurityConfigJDBC {
 
     @Bean

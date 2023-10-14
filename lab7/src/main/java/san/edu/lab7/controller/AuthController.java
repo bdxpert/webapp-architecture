@@ -20,10 +20,10 @@ public class AuthController {
     @GetMapping("/auth")
     @ResponseBody
     public Authentication getAuthentication(Authentication authentication){
-        SecurityContext context = SecurityContextHolder.getContext();
-        return context.getAuthentication();
-       // UserDetails u;
-        //return authentication;
+        //SecurityContext context = SecurityContextHolder.getContext();
+        //return context.getAuthentication();
+        UserDetails u;
+        return authentication;
     }
 
 }
