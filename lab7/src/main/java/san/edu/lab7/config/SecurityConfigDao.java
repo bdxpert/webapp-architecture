@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
+import san.edu.lab7.filter.TenantFilter;
 
 //@Configuration
 //@EnableWebSecurity(debug = true)
@@ -28,8 +29,8 @@ public class SecurityConfigDao {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
-//                .addFilterAfter(new TenantFilter(), AuthorizationFilter.class)
+                //.formLogin(Customizer.withDefaults())
+                .addFilterAfter(new TenantFilter(), AuthorizationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
 //                        .requestMatchers("/products/**").hasAuthority("USER")

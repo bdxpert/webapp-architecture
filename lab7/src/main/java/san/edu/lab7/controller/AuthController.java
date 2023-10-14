@@ -1,6 +1,8 @@
 package san.edu.lab7.controller;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +19,11 @@ public class AuthController {
 
     @GetMapping("/auth")
     @ResponseBody
-    public Authentication getAUthentication(Authentication authentication){
-//        SecurityContext context = SecurityContextHolder.getContext();
-//        return context.getAuthentication();
-        UserDetails u;
-        return authentication;
+    public Authentication getAuthentication(Authentication authentication){
+        SecurityContext context = SecurityContextHolder.getContext();
+        return context.getAuthentication();
+       // UserDetails u;
+        //return authentication;
     }
 
 }

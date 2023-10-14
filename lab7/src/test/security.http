@@ -1,0 +1,11 @@
+GET http://localhost:8080/products
+
+###
+GET http://localhost:8080/products
+Authorization: Basic john@miu.edu 123456
+X-WAA: 545abc
+
+###
+GET http://localhost:8080/auth
+Authorization: Basic john 123456
+X-WAA: 545abc
