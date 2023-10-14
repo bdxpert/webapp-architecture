@@ -1,12 +1,12 @@
 package san.edu.lab7.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import san.edu.lab7.domain.Book;
 import san.edu.lab7.service.BookService;
-
-import java.util.List;
 
 /*
 Create a Spring Boot Web Project with following features
@@ -26,6 +26,8 @@ Create a Spring Boot Web Project with following features
 
  */
 @RestController
+@Slf4j
+@RequestMapping("/books")
 public class BookController {
     private BookService bookService;
 
@@ -33,15 +35,36 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/books")
-    public List<Book> getBooks()
+    @GetMapping
+    public ResponseEntity<?> getBooks()
     {
-        return bookService.getBooks();
+        return new ResponseEntity<>(bookService.getBooks(), HttpStatus.OK);
+
     }
-    @GetMapping("/book/{id}")
-    public Book getBooks(@PathVariable("id") Long id)
+    @GetMapping("/{id}")
+    public ResponseEntity<?>  getBooks(@PathVariable("id") Long id)
     {
         System.out.println("Running...");
-        return bookService.getBook(id);
+        return new ResponseEntity<>(bookService.getBook(id), HttpStatus.OK);
+    }
+    @PostMapping
+    public ResponseEntity<?> create(@RequestBody Book bookDTO) {
+        Book result = null;
+        try {
+            result = bookService.createBook(bookDTO);
+        } catch(Exception ex) {
+            log.error(ex.getMessage());
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody Book bookDTO) {
+        Book result = null;
+        try {
+            result = bookService.updateBook(bookDTO);
+        } catch(Exception ex) {
+            log.error(ex.getMessage());
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

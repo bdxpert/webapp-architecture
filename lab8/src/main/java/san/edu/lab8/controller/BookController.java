@@ -1,6 +1,6 @@
 package san.edu.lab8.controller;
 
-import jakarta.annotation.security.RolesAllowed;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,36 +39,32 @@ public class BookController {
     }
 
     @GetMapping
-    @RolesAllowed({ "ROLE_ADMIN", "ROLE_USER" })
     public ResponseEntity<?> getBooks()
     {
         return new ResponseEntity<>(bookService.getBooks(), HttpStatus.OK);
 
     }
     @GetMapping("/{id}")
-    @RolesAllowed({ "ROLE_ADMIN", "ROLE_USER" })
     public ResponseEntity<?>  getBooks(@PathVariable("id") Long id)
     {
         System.out.println("Running...");
         return new ResponseEntity<>(bookService.getBook(id), HttpStatus.OK);
     }
     @PostMapping
-    @RolesAllowed({ "ROLE_ADMIN" })
-    public ResponseEntity<?> create(@RequestBody Book userDTO) {
+    public ResponseEntity<?> create(@RequestBody Book bookDTO) {
         Book result = null;
         try {
-            result = bookService.createBook(userDTO);
+            result = bookService.createBook(bookDTO);
         } catch(Exception ex) {
             log.error(ex.getMessage());
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @PutMapping
-    @RolesAllowed({ "ROLE_ADMIN" })
-    public ResponseEntity<?> update(@RequestBody Book userDTO) {
+    public ResponseEntity<?> update(@RequestBody Book bookDTO) {
         Book result = null;
         try {
-            result = bookService.updateBook(userDTO);
+            result = bookService.updateBook(bookDTO);
         } catch(Exception ex) {
             log.error(ex.getMessage());
         }
