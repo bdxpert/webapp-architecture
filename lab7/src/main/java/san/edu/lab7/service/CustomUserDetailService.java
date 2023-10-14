@@ -26,8 +26,8 @@ public class UserDetailService implements UserDetailsService {
             return org.springframework.security.core.userdetails.User
                     .withUsername(u.getEmail())
                     .password(u.getPassword())
-                    .authorities(u.getRoles().stream().map(s -> new SimpleGrantedAuthority(s)).collect(Collectors.toList()))
-//                    .roles(u.getRoles().stream().collect(Collectors.joining(","))) //ROLE_USER,ADMIN
+                   // .authorities(u.getRoles().stream().map(s -> new SimpleGrantedAuthority(s)).collect(Collectors.toList()))
+                    .roles(u.getRoles().stream().collect(Collectors.joining(","))) //ROLE_USER,ADMIN
                     .build();
         }
     }
