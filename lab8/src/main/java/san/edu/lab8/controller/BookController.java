@@ -1,5 +1,6 @@
 package san.edu.lab8.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,18 +39,21 @@ public class BookController {
     }
 
     @GetMapping
+    @RolesAllowed({ "ROLE_ADMIN", "ROLE_USER" })
     public ResponseEntity<?> getBooks()
     {
         return new ResponseEntity<>(bookService.getBooks(), HttpStatus.OK);
 
     }
     @GetMapping("/{id}")
+    @RolesAllowed({ "ROLE_ADMIN", "ROLE_USER" })
     public ResponseEntity<?>  getBooks(@PathVariable("id") Long id)
     {
         System.out.println("Running...");
         return new ResponseEntity<>(bookService.getBook(id), HttpStatus.OK);
     }
     @PostMapping
+    @RolesAllowed({ "ROLE_ADMIN" })
     public ResponseEntity<?> create(@RequestBody Book userDTO) {
         Book result = null;
         try {
@@ -60,6 +64,7 @@ public class BookController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @PutMapping
+    @RolesAllowed({ "ROLE_ADMIN" })
     public ResponseEntity<?> update(@RequestBody Book userDTO) {
         Book result = null;
         try {
