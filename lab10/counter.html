@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Callback Refs</title>
+    <script type="text/javascript" src="./libraries/react.development.js"></script>
+    <script type="text/javascript" src="./libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="./libraries/babel.min.js"></script>
+</head>
+<body>
+<div id="main"></div>
+<script type="text/babel">
+
+    class CounterComponent extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {count:0};
+        }
+        increment = () => {
+            // use updater function
+            this.setState((prevState)=>({count: prevState.count+1}),
+                ()=>{
+                 console.log("Increment count value:"+this.state.count);
+                });
+        }
+        decrement = () => {
+            // use updater function
+            this.setState((prevState)=>({count: prevState.count-1}),
+                ()=>{
+                    console.log("Decrement count value:"+this.state.count);
+                });
+        }
+        render(){
+
+            return (
+                <div>
+                    <span>Count:{this.state.count}</span>
+                    <button onClick={this.increment}>Increment</button>
+                    <button onClick={this.decrement}>decrement</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.createRoot(document.getElementById('main')).render(<CounterComponent />);
+    // const reactDom = ReactDOM.createRoot(document.getElementById("main"));
+
+    // reactDom.render(<CounterComponent />);
+</script>
+
+</body>
+</html>
