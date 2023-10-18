@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Callback Refs</title>
+    <script type="text/javascript" src="./libraries/react.development.js"></script>
+    <script type="text/javascript" src="./libraries/react-dom.development.js"></script>
+    <script type="text/javascript" src="./libraries/babel.min.js"></script>
+</head>
+<body>
+<div id="main"></div>
+<!--
+1. Create a component which loop through the colors in an array every 1 second, starting from the first element in the array. 
+If it reaches the end of the array, start from 0 again, until the component is unmounted by click unmount button.
+
+2. Redo yesterday's demo using function component with useState() hook. 
+If you've already done using hook, change to do with class component.
+
+3.  Create a component which display a button and an input field. 
+When click on the button,
+it focuses on an input field which means the cursor moves to input field using useRef() Hook.
+
+4. Practice useCallback(), useMemo() by yourself.
+
+ 
+-->
+<script type="text/babel">
+    class ColorComponent extends React.Component {
+        timerId;
+        state = {myFavouriteColors: ['red', 'yellow', 'pink', 'blue', 'white'], index: 0};
+        unMount=()=>{
+            clearInterval(this.timerId);
+            root.unmount();
+        }
+        componentDidMount()
+        {
+            this.timerId = setInterval(()=>{
+                console.log("inside interval");
+                const {index, myFavouriteColors} = this.state;
+                if(index === myFavouriteColors.length-1) {
+                    this.setState({index:0});
+                } else {
+                    this.setState({index:index+1});
+                }
+            }, 1000)
+        }
+        render() {
+            const {index, myFavouriteColors} = this.state;
+            return(
+                <div>
+                    <h1>My Favourite color: {myFavouriteColors[index]}</h1>
+                    <button onClick={this.unMount}>Unmount</button>
+                </div>
+            );
+        }
+    }
+    const root = ReactDOM.createRoot(document.getElementById('main'));
+    root.render(<ColorComponent />);
+
+</script>
+
+</body>
+</html>
